@@ -15,9 +15,11 @@ public class UBTU {
 		String encoding="UTF-8";
 		try {
             File file = new File(filePath);
-            if(file.isFile() && file.exists()){ //判断文件是否存在
+			//判断文件是否存在
+            if(file.isFile() && file.exists()){
                 InputStreamReader read = new InputStreamReader(
-                		new FileInputStream(file), encoding);//考虑到编码格式
+						//考虑到编码格式
+                		new FileInputStream(file), encoding);
                 BufferedReader bufferedReader = new BufferedReader(read);
                 String lineTxt = null;
                 int i = 0;
@@ -26,7 +28,8 @@ public class UBTU {
                 	lineTxt = lineTxt.split(".java:")[0]+".java";
                 	if(i % 2 == 0){
                 		System.out.println(lineTxt);
-                    	String allstr = bomToUTF8Read(lineTxt);    // "D://1/"+ lineTxt.substring(lineTxt.lastIndexOf("/"), lineTxt.length())
+						// "D://1/"+ lineTxt.substring(lineTxt.lastIndexOf("/"), lineTxt.length())
+                    	String allstr = bomToUTF8Read(lineTxt);
                     	bomToUTF8Write(allstr, lineTxt);
                 	}else{
                 		System.out.println("地址重复已经跳过"+lineTxt);
@@ -53,7 +56,8 @@ public class UBTU {
 			int i=0;
 			String str="";
 			while((str=br.readLine())!=null){
-				if(i==0){//读取第一行，将前三个字节去掉，重新new个String对象
+				//读取第一行，将前三个字节去掉，重新new个String对象
+				if(i==0){
 					byte[] bytes=str.getBytes("UTF-8");
 					allstr += new String(bytes,3,bytes.length-3, "UTF-8") + "\r\n";
 				}else{
